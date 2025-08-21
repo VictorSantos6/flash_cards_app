@@ -13,7 +13,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "home screen",
+          "Flash Cards App",
           style: TextStyle(
             fontSize: 50,
             fontWeight: FontWeight.bold
@@ -24,19 +24,39 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Padding(
             padding: EdgeInsetsGeometry.all(20),
-            child: Container(
-              margin: EdgeInsets.fromLTRB(20, 20, 0, 0),
-              width: 150,
-              height: 150,
-              
-              decoration: BoxDecoration(
-                color: Colors.amber,
-                borderRadius: BorderRadius.circular(30)
-              ),
-              child: TextButton(onPressed: (){
-                Navigator.of(context).pushNamed('FP');
-              },
-               child: Text("Flashcards",style: TextStyle(color: Colors.black),)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  margin: EdgeInsets.all(0),
+                  width: 150,
+                  height: 150,
+                  
+                  decoration: BoxDecoration(
+                    color: Colors.amber,
+                    borderRadius: BorderRadius.circular(30)
+                  ),
+                  child: TextButton(onPressed: (){
+                    Navigator.of(context).pushNamed('FP');
+                  },
+                   child: Text("Flashcards",style: TextStyle(color: Colors.black),)),
+                ),
+                
+                Container(
+                  margin: EdgeInsets.all(0),
+                  width: 150,
+                  height: 150,
+                  
+                  decoration: BoxDecoration(
+                    color: Colors.amber,
+                    borderRadius: BorderRadius.circular(30)
+                  ),
+                  child: TextButton(onPressed: (){
+                    Navigator.of(context).pushNamed('SP');
+                  },
+                   child: Text("Settings",style: TextStyle(color: Colors.black),)),
+                ),
+              ],
             ),
           )
         ],

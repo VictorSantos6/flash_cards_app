@@ -1,6 +1,6 @@
 
-import 'package:flash_cards_project/flashcards_app/features/domain/entities/flashcard_entity.dart';
-import 'package:flash_cards_project/flashcards_app/features/presentation/cubit/flashcard_cubit.dart';
+import 'package:flash_cards_project/flashcards_app/features/domain/entities/flashcard/flashcard_entity.dart';
+import 'package:flash_cards_project/flashcards_app/features/presentation/cubits/cubit/flashcard_cubit.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
