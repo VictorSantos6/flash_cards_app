@@ -1,5 +1,7 @@
-import 'package:flash_cards_project/features/domain/repositories/flashcard_entity.dart';
-import 'package:flash_cards_project/features/domain/repositories/flashcard_repository.dart';
+
+
+import 'package:flash_cards_project/flashcards_app/features/domain/entities/flashcard_entity.dart';
+import 'package:flash_cards_project/flashcards_app/features/domain/repositories/flashcard_repository.dart';
 
 class AddFlashcard{
   final FlashcardRepository repo;
@@ -26,6 +28,6 @@ class GetAllFlashcards{
   GetAllFlashcards(this.repo);
 
   Future<List<FlashcardEntity>> call()async{
-    return repo.getFlashcards();
+    return repo.getAllFlashcards();
   }
 }

@@ -1,6 +1,6 @@
-import 'package:flash_cards_project/features/domain/repositories/flashcard_repository.dart';
+
 import 'package:flash_cards_project/flashcards_app/features/data/models/flashcard_model.dart';
-import 'package:flash_cards_project/flashcards_app/features/data/repository/flashcard_repository_imp.dart';
+
 import 'package:hive_flutter/hive_flutter.dart';
 
 abstract class FlashcardDataSources {
