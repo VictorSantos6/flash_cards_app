@@ -37,9 +37,7 @@ class SettingsCubit extends Cubit<SettingsState> {
       final current = (state as SettingsLoaded).brightnessMode;
       emit(SettingsLoading());
       try {
-        final newMode = current == BrightnessModeEntity.dark
-            ? BrightnessModeEntity.light
-            : BrightnessModeEntity.dark;
+        final newMode = current == BrightnessModeEntity.dark ? BrightnessModeEntity.light : BrightnessModeEntity.dark;
 
         await repo.setBrightness(newMode);
         emit(SettingsLoaded(brightnessMode: newMode));

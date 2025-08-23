@@ -9,14 +9,18 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Settings")),
+      appBar: AppBar(
+        title: Text(
+          "Settings"
+        )
+      ),
       body: BlocBuilder<SettingsCubit, SettingsState>(
         builder: (context, state) {
           if (state is SettingsLoaded) {
             final isDark = state.brightnessMode == BrightnessModeEntity.dark;
 
             return ListTile(
-              title: const Text("Dark Mode"),
+              title: Text("Dark Mode"),
               trailing: Switch(
                 value: isDark,
                 onChanged: (_) {
@@ -25,12 +29,18 @@ class SettingsPage extends StatelessWidget {
               ),
             );
           } else if (state is SettingsLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return Center(
+              child: CircularProgressIndicator()
+            );
           } else if (state is SettingsError) {
-            return Center(child: Text("Error: ${state.message}"));
+            return Center(
+              child: Text("Error: ${state.message}")
+            );
           } else {
 
-            return const Center(child: Text("Loading settings..."));
+            return Center(
+              child: Text("Loading settings...")
+            );
           }
         },
       ),

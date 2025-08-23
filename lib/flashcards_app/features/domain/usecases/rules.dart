@@ -36,24 +36,8 @@ class GetAllFlashcards{
   }
 }
 
-// SETTINGS
 
-class GetBrightness{
-  final BrightnessModeRepository repo;
-  GetBrightness(this.repo);
 
-  Future<BrightnessModeEntity> call()async{
-    return await repo.getBrightness();
-  }
-}
 
-class SetBrightness{
-  final BrightnessModeRepository repo;
-  SetBrightness(this.repo);
-
-  Future<void> call(BrightnessModeEntity entity)async{
-    await repo.setBrightness(entity);
-  }
-}
 
 

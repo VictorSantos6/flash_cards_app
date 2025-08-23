@@ -9,7 +9,7 @@ class BrightnessModeRepositoryImp implements BrightnessModeRepository{
   @override
   Future<BrightnessModeEntity> getBrightness() async{
     final stored = await dataSourceImp.getBrightness();
-    return (stored ?? BrightnessMode.light).toEntity();
+    return (stored ?? BrightnessModeModel.light).toEntity();
   }
 
   @override

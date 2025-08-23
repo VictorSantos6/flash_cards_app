@@ -6,29 +6,29 @@ part of 'brightness_mode_model.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class BrightnessModeAdapter extends TypeAdapter<BrightnessMode> {
+class BrightnessModeAdapter extends TypeAdapter<BrightnessModeModel> {
   @override
   final int typeId = 1;
 
   @override
-  BrightnessMode read(BinaryReader reader) {
+  BrightnessModeModel read(BinaryReader reader) {
     switch (reader.readByte()) {
       case 0:
-        return BrightnessMode.dark;
+        return BrightnessModeModel.dark;
       case 1:
-        return BrightnessMode.light;
+        return BrightnessModeModel.light;
       default:
-        return BrightnessMode.dark;
+        return BrightnessModeModel.dark;
     }
   }
 
   @override
-  void write(BinaryWriter writer, BrightnessMode obj) {
+  void write(BinaryWriter writer, BrightnessModeModel obj) {
     switch (obj) {
-      case BrightnessMode.dark:
+      case BrightnessModeModel.dark:
         writer.writeByte(0);
         break;
-      case BrightnessMode.light:
+      case BrightnessModeModel.light:
         writer.writeByte(1);
         break;
     }

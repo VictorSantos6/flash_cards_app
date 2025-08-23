@@ -23,10 +23,11 @@ class _FlashcardsPageState extends State<FlashcardsPage> {
       appBar: AppBar(
         title: Text('Flashcards'),
         actions: [
-          IconButton(onPressed: (){
+          IconButton(
+            onPressed: (){
             showDialog(context: context, builder: (context){
               return AlertDialog(
-                title: Text("Add User"),
+                title: Text("Add User",style: TextStyle(fontWeight: FontWeight.bold),),
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -41,11 +42,13 @@ class _FlashcardsPageState extends State<FlashcardsPage> {
                   ],
                 ),
                 actions: [
-                  TextButton(onPressed: (){
+                  TextButton(
+                    onPressed: (){
                     Navigator.of(context).pop();
-                  }, child: Text("Cancel")
+                  }, child: Text("Cancel",style: TextStyle(color: Colors.amberAccent),)
                   ),
-                  TextButton(onPressed: (){
+                  TextButton(
+                    onPressed: (){
                     final question = questionController.text;
                     final answer = answerController.text;
 
@@ -57,18 +60,23 @@ class _FlashcardsPageState extends State<FlashcardsPage> {
                     questionController.clear();
                     Navigator.of(context).pop();
 
-                  }, child: (Text("Ok")))
+                    }, 
+                    child: Text("Enter user",style: TextStyle(color: Colors.amber),)
+                  )
                 ],
               );
-            });
-          }, icon: Icon(Icons.add))
-        ],
-      ),
+            }
+           );
+          }, 
+          icon: Icon(Icons.add)
+        )
+      ],
+    ),
       body: BlocBuilder<FlashcardCubit, FlashcardState>(
         builder: (context, state) {
           if(state is FlashcardLoaded){
             if(state.flashcards.isEmpty){
-              return const Center(
+              return Center(
                 child: Text(
                   'No flashcards yet',
                   style: TextStyle(color: Colors.white),
@@ -86,23 +94,31 @@ class _FlashcardsPageState extends State<FlashcardsPage> {
                         title: Text("Answer",style: TextStyle(fontWeight: FontWeight.bold),),
                         content: Text(flashcard.answer),
                         actions: [
-                          IconButton(onPressed: (){
-                            context.read<FlashcardCubit>().deleteFlashcard(flashcard.id);
-                          }, icon: Icon(Icons.delete)),
-                          TextButton(onPressed: (){Navigator.pop(context);}, child: Text("close"))
+                          IconButton(
+                            onPressed: (){
+                              context.read<FlashcardCubit>().deleteFlashcard(flashcard.id);
+                              Navigator.pop(context);
+                            }, 
+                            icon: Icon(Icons.delete,color: Colors.red,)),
+                            TextButton(
+                              onPressed: (){
+                                Navigator.pop(context);
+                              }, 
+                            child: Text("close",style: TextStyle(color: Colors.amber),),
+                          )
                         ],
                       );
                     },);
                   },
                   child: Card(
                     elevation: 4,
-                    margin: const EdgeInsets.symmetric(vertical: 10,horizontal: 16),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    margin: EdgeInsets.symmetric(vertical: 10,horizontal: 20),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                     child: Padding(
-                      padding: const EdgeInsets.all(16),
+                      padding: EdgeInsets.all(20),
                       child: Text(
                         flashcard.question,
-                        style: TextStyle(fontSize: 18),
+                        style: TextStyle(fontSize: 20),
                       ),
                     ),
                   ),
@@ -111,13 +127,21 @@ class _FlashcardsPageState extends State<FlashcardsPage> {
               },
             );
           } else if(state is FlashcardLoading){
-            return const Center(child: CircularProgressIndicator(),);
+            return Center(
+              child: CircularProgressIndicator()
+            );
           }else{
-            return const Center(child: Text("Something went wrong",style: TextStyle(color: Colors.white),),);
+            return Center(
+              child: Text(
+                "Something went wrong",
+                style: TextStyle(
+                  color: Colors.white
+                )
+              )
+            );
           }
         },
       )
-      
     );
   }
 }

@@ -11,10 +11,8 @@ import 'package:flash_cards_project/flashcards_app/features/presentation/cubits/
 import 'package:flash_cards_project/flashcards_app/features/presentation/pages/flashcards_page.dart';
 import 'package:flash_cards_project/flashcards_app/features/presentation/pages/home_screen.dart';
 import 'package:flash_cards_project/flashcards_app/features/presentation/pages/settings.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
@@ -25,15 +23,13 @@ void main() async {
   Hive.registerAdapter(BrightnessModeAdapter());
 
   final userBox = await Hive.openBox<FlashcardModel>("flashcards");
-  final settingsBox = await Hive.openBox<BrightnessMode>("settings");
+  final settingsBox = await Hive.openBox<BrightnessModeModel>("settings");
 
-  final localDS = FlashcardDataSourcesImp(userBox);
-  final repo = FlashcardRepositoryImp(dataSource: localDS);
+  final flashcardDS = FlashcardDataSourcesImp(userBox);
+  final repo = FlashcardRepositoryImp(dataSource: flashcardDS);
 
   final brightnessDS = ChangeBrightnessDataSourceImp(modeBox: settingsBox);
-  final brightnessRepo = BrightnessModeRepositoryImp(
-    dataSourceImp: brightnessDS,
-  );
+  final brightnessRepo = BrightnessModeRepositoryImp(dataSourceImp: brightnessDS);
 
   final addFlashcardUC = AddFlashcard(repo);
   final deleteFlashcardUC = DeleteFlashcard(repo);
@@ -42,18 +38,17 @@ void main() async {
     MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (_) =>
-              FlashcardCubit(repo, addFlashcardUC, deleteFlashcardUC),
+          create: (_) => FlashcardCubit(repo, addFlashcardUC, deleteFlashcardUC)
         ),
-        BlocProvider(create: (_) => SettingsCubit(brightnessRepo)),
+        BlocProvider(
+          create: (_) => SettingsCubit(brightnessRepo)
+        ),
       ],
       child: BlocBuilder<SettingsCubit, SettingsState>(
         builder: (context, state) {
           Brightness brightness = Brightness.light;
           if (state is SettingsLoaded) {
-            brightness = state.brightnessMode == BrightnessModeEntity.dark
-                ? Brightness.dark
-                : Brightness.light;
+            brightness = state.brightnessMode == BrightnessModeEntity.dark ? Brightness.dark : Brightness.light;
           }
           return MaterialApp(
             debugShowCheckedModeBanner: false,
