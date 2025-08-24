@@ -22,11 +22,11 @@ class DeckModel {
   DeckModel({required this.deckModel,required this.name,required this.id});
 
   factory DeckModel.fromEntity(DeckEntity entity){
-    return DeckModel(deckModel: entity.deck.map((e)=> FlashcardModel.fromEntity(e)).toList(),id: entity.id,name: entity.name);
+    return DeckModel(deckModel: entity.deckList.map((e)=> FlashcardModel.fromEntity(e)).toList(),id: entity.id,name: entity.name);
   }
 
   DeckEntity toEntity(){
-    return DeckEntity(deck: deckModel.map((e)=> e.toEntity()).toList(),id: id,name: name);
+    return DeckEntity(deckList: deckModel.map((e)=> e.toEntity()).toList(),id: id,name: name);
   }
 
 }

@@ -25,7 +25,6 @@ class DeckCubit extends Cubit<DeckState> {
     try {
       await repo.addDeck(newDeck);
       final decks = await repo.getAllDecks();
-
       emit(DeckLoaded(decks));
     } catch (e) {
       emit(DeckError("Failed to add deck: $e"));
@@ -36,7 +35,6 @@ class DeckCubit extends Cubit<DeckState> {
     try {
       await repo.deleteDeck(id);
       final decks = await repo.getAllDecks();
-
       emit(DeckLoaded(decks));
     } catch (e) {
       emit(DeckError("Failed to delete deck: $e"));

@@ -8,7 +8,6 @@ abstract class DeckDataSource {
   Future<void> deleteDeck(String id);
   Future<List<DeckModel>> getAllDecks();
   Future<DeckModel?> getDeck(String id);
-
   Future<void> addFlashcardToDeck(String deckId, FlashcardModel flashcard);
   Future<void> deleteFlashcardFromDeck(String deckId, String flashcardId);
 }
@@ -49,7 +48,12 @@ class DeckDataSourceImp implements DeckDataSource{
   Future<void> deleteFlashcardFromDeck(String deckId,String flashcardId) async {
     final deck = deckBox.get(deckId);
     if (deck != null) {
-      deck.deckModel.removeWhere((f) => f.id == flashcardId);
+      for (int i = 0; i < deck.deckModel.length; i++) {
+        if (deck.deckModel[i].id == flashcardId) {
+          deck.deckModel.removeAt(i);
+          break; 
+        }
+      }
       await deckBox.put(deckId, deck); 
     }
   }

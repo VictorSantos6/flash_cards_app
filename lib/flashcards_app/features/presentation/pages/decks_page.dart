@@ -50,7 +50,7 @@ class _DecksPageState extends State<DecksPage> {
                         onPressed: () {
                           final id = Uuid().v4();
                           final name = deckName.text;
-                          final newDeck = DeckEntity(deck: [], name: name,id: id);
+                          final newDeck = DeckEntity(deckList: [], name: name,id: id);
                           context.read<DeckCubit>().addDeck(newDeck);
                           deckName.clear();
                           Navigator.of(context).pop();

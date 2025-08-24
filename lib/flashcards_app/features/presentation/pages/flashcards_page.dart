@@ -85,7 +85,7 @@ class _FlashcardsPageState extends State<FlashcardsPage> {
         builder: (context, state) {
           if(state is DeckLoaded){
             final deck = state.decks.firstWhere((d) => d.id == widget.deckId);
-            final flashcards = deck.deck;
+            final flashcards = deck.deckList;
             if(flashcards.isEmpty){
               return Center(
                 child: Text(
