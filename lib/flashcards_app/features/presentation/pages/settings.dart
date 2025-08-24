@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flash_cards_project/flashcards_app/features/domain/entities/settings/brightness_mode_entity.dart';
+import 'package:flash_cards_project/flashcards_app/features/domain/entities/brightness_mode_entity.dart';
 import 'package:flash_cards_project/flashcards_app/features/presentation/cubits/cubit/settings_cubit.dart';
 
 class SettingsPage extends StatelessWidget {

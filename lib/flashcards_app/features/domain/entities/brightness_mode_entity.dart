@@ -1,0 +1,9 @@
+
+
+
+enum BrightnessModeEntity{
+  dark,
+  light
+}
+
+

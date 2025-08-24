@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flash_cards_project/flashcards_app/features/data/repository/flashcard_repository_imp.dart';
-import 'package:flash_cards_project/flashcards_app/features/domain/entities/flashcard/flashcard_entity.dart';
+import 'package:flash_cards_project/flashcards_app/features/domain/entities/flashcard_entity.dart';
 
 import 'package:flash_cards_project/flashcards_app/features/domain/usecases/rules.dart';
 
@@ -22,7 +22,7 @@ class FlashcardCubit extends Cubit<FlashcardState> {
       final flashcards = await repo.getAllFlashcards();
       emit(FlashcardLoaded(flashcards));
     }catch(e){
-      emit(FlashcardError("Failed to load flashcards"));
+      emit(FlashcardError("Failed to load flashcards: $e"));
     }
   }
 

@@ -1,4 +1,4 @@
-import 'package:flash_cards_project/flashcards_app/features/domain/entities/settings/brightness_mode_entity.dart';
+import 'package:flash_cards_project/flashcards_app/features/domain/entities/brightness_mode_entity.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 part 'brightness_mode_model.g.dart';
 

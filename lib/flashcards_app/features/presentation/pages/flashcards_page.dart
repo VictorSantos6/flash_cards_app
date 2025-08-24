@@ -1,19 +1,22 @@
 
-import 'package:flash_cards_project/flashcards_app/features/domain/entities/flashcard/flashcard_entity.dart';
-import 'package:flash_cards_project/flashcards_app/features/presentation/cubits/cubit/flashcard_cubit.dart';
+import 'package:flash_cards_project/flashcards_app/features/domain/entities/flashcard_entity.dart';
+import 'package:flash_cards_project/flashcards_app/features/presentation/cubits/cubit/deck_cubit.dart';
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:uuid/uuid.dart';
 
 class FlashcardsPage extends StatefulWidget {
-  const FlashcardsPage({super.key});
+  final String deckId;
+  const FlashcardsPage({super.key,required this.deckId});
 
   @override
   State<FlashcardsPage> createState() => _FlashcardsPageState();
 }
 
 class _FlashcardsPageState extends State<FlashcardsPage> {
+  
   final questionController = TextEditingController();
   final answerController = TextEditingController();
 
@@ -25,57 +28,65 @@ class _FlashcardsPageState extends State<FlashcardsPage> {
         actions: [
           IconButton(
             onPressed: (){
-            showDialog(context: context, builder: (context){
-              return AlertDialog(
-                title: Text("Add User",style: TextStyle(fontWeight: FontWeight.bold),),
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    TextField(
-                      controller: questionController,
-                      decoration: InputDecoration(labelText: "Question: "),
+              showDialog(context: context, builder: (context){
+                return AlertDialog(
+                  title: Text(
+                    "Add flashcard",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold
                     ),
-                    TextField(
-                        controller: answerController,
-                        decoration: InputDecoration(labelText: "Answer: "),
-                      ),
-                  ],
-                ),
-                actions: [
-                  TextButton(
-                    onPressed: (){
-                    Navigator.of(context).pop();
-                  }, child: Text("Cancel",style: TextStyle(color: Colors.amberAccent),)
                   ),
-                  TextButton(
-                    onPressed: (){
-                    final question = questionController.text;
-                    final answer = answerController.text;
-
-                    final id = Uuid().v4();
-                    final flashcard = FlashcardEntity(id: id, question: question, answer: answer);
-                    context.read<FlashcardCubit>().addFlashcard(flashcard);
-
-                    answerController.clear();
-                    questionController.clear();
-                    Navigator.of(context).pop();
-
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      TextField(
+                        controller: questionController,
+                        decoration: InputDecoration(labelText: "Question: "),
+                      ),
+                      TextField(
+                          controller: answerController,
+                          decoration: InputDecoration(labelText: "Answer: "),
+                        ),
+                    ],
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: (){
+                      Navigator.of(context).pop();
                     }, 
-                    child: Text("Enter user",style: TextStyle(color: Colors.amber),)
-                  )
-                ],
-              );
-            }
+                    child: Text("Cancel",style: TextStyle(color: Colors.amberAccent),)
+                    ),
+                    TextButton(
+                      onPressed: (){
+                      final question = questionController.text;
+                      final answer = answerController.text;
+
+                      final id = Uuid().v4();
+                      final flashcard = FlashcardEntity(id: id, question: question, answer: answer);
+                      context.read<DeckCubit>().addFlashcard(widget.deckId,flashcard);
+
+                      answerController.clear();
+                      questionController.clear();
+                      Navigator.of(context).pop();
+
+                      }, 
+                      child: Text("Add",style: TextStyle(color: Colors.amber),)
+                    )
+                  ],
+                );
+              }
            );
           }, 
           icon: Icon(Icons.add)
         )
       ],
     ),
-      body: BlocBuilder<FlashcardCubit, FlashcardState>(
+      body: BlocBuilder<DeckCubit, DeckState>(
         builder: (context, state) {
-          if(state is FlashcardLoaded){
-            if(state.flashcards.isEmpty){
+          if(state is DeckLoaded){
+            final deck = state.decks.firstWhere((d) => d.id == widget.deckId);
+            final flashcards = deck.deck;
+            if(flashcards.isEmpty){
               return Center(
                 child: Text(
                   'No flashcards yet',
@@ -84,9 +95,9 @@ class _FlashcardsPageState extends State<FlashcardsPage> {
               );
             }
             return ListView.builder(
-              itemCount: state.flashcards.length,
+              itemCount: flashcards.length,
               itemBuilder: (context, index) {
-                final flashcard = state.flashcards[index];
+                final flashcard = flashcards[index];
                 return GestureDetector(
                   onTap: () {
                     showDialog(context: context, builder:(context) {
@@ -96,7 +107,7 @@ class _FlashcardsPageState extends State<FlashcardsPage> {
                         actions: [
                           IconButton(
                             onPressed: (){
-                              context.read<FlashcardCubit>().deleteFlashcard(flashcard.id);
+                              context.read<DeckCubit>().deleteFlashcard(widget.deckId,flashcard.id);
                               Navigator.pop(context);
                             }, 
                             icon: Icon(Icons.delete,color: Colors.red,)),
@@ -126,7 +137,7 @@ class _FlashcardsPageState extends State<FlashcardsPage> {
                 );
               },
             );
-          } else if(state is FlashcardLoading){
+          } else if(state is DeckLoading){
             return Center(
               child: CircularProgressIndicator()
             );
@@ -135,7 +146,7 @@ class _FlashcardsPageState extends State<FlashcardsPage> {
               child: Text(
                 "Something went wrong",
                 style: TextStyle(
-                  color: Colors.white
+                  color: Colors.amber 
                 )
               )
             );

@@ -1,9 +1,9 @@
 
 
-import 'package:flash_cards_project/flashcards_app/features/domain/entities/flashcard/flashcard_entity.dart';
-import 'package:flash_cards_project/flashcards_app/features/domain/entities/settings/brightness_mode_entity.dart';
-import 'package:flash_cards_project/flashcards_app/features/domain/repositories/flashcard/flashcard_repository.dart';
-import 'package:flash_cards_project/flashcards_app/features/domain/repositories/settings/brightness_mode_repository.dart';
+import 'package:flash_cards_project/flashcards_app/features/domain/entities/flashcard_entity.dart';
+import 'package:flash_cards_project/flashcards_app/features/domain/entities/brightness_mode_entity.dart';
+import 'package:flash_cards_project/flashcards_app/features/domain/repositories/flashcard_repository.dart';
+import 'package:flash_cards_project/flashcards_app/features/domain/repositories/brightness_mode_repository.dart';
 
 
 //FLASHCARD

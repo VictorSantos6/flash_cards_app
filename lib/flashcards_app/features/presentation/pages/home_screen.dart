@@ -37,9 +37,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     borderRadius: BorderRadius.circular(30)
                   ),
                   child: TextButton(onPressed: (){
-                    Navigator.of(context).pushNamed('FP');
+                    Navigator.of(context).pushNamed('DP');
                   },
-                   child: Text("Flashcards",style: TextStyle(color: Colors.black),)),
+                   child: Text("Decks",style: TextStyle(color: Colors.black),)),
                 ),
                 
                 Container(

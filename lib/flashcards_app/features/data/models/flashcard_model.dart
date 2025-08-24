@@ -1,5 +1,5 @@
 
-import 'package:flash_cards_project/flashcards_app/features/domain/entities/flashcard/flashcard_entity.dart';
+import 'package:flash_cards_project/flashcards_app/features/domain/entities/flashcard_entity.dart';
 import 'package:hive/hive.dart';
 
 part 'flashcard_model.g.dart'; 

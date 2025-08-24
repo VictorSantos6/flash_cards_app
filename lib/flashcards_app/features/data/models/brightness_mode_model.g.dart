@@ -6,7 +6,7 @@ part of 'brightness_mode_model.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class BrightnessModeAdapter extends TypeAdapter<BrightnessModeModel> {
+class BrightnessModeModelAdapter extends TypeAdapter<BrightnessModeModel> {
   @override
   final int typeId = 1;
 
@@ -40,7 +40,7 @@ class BrightnessModeAdapter extends TypeAdapter<BrightnessModeModel> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is BrightnessModeAdapter &&
+      other is BrightnessModeModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

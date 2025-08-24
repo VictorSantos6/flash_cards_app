@@ -1,7 +1,7 @@
 import 'package:flash_cards_project/flashcards_app/features/data/data_sources/flashcard_data_sources.dart';
 import 'package:flash_cards_project/flashcards_app/features/data/models/flashcard_model.dart';
-import 'package:flash_cards_project/flashcards_app/features/domain/entities/flashcard/flashcard_entity.dart';
-import 'package:flash_cards_project/flashcards_app/features/domain/repositories/flashcard/flashcard_repository.dart';
+import 'package:flash_cards_project/flashcards_app/features/domain/entities/flashcard_entity.dart';
+import 'package:flash_cards_project/flashcards_app/features/domain/repositories/flashcard_repository.dart';
 
 class FlashcardRepositoryImp implements FlashcardRepository{
   final FlashcardDataSourcesImp dataSource;
