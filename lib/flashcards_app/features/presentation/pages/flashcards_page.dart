@@ -1,6 +1,8 @@
 
+import 'package:flash_cards_project/flashcards_app/features/domain/entities/brightness_mode_entity.dart';
 import 'package:flash_cards_project/flashcards_app/features/domain/entities/flashcard_entity.dart';
 import 'package:flash_cards_project/flashcards_app/features/presentation/cubits/cubit/deck_cubit.dart';
+import 'package:flash_cards_project/flashcards_app/features/presentation/cubits/cubit/settings_cubit.dart';
 
 import 'package:flutter/material.dart';
 
@@ -22,6 +24,9 @@ class _FlashcardsPageState extends State<FlashcardsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final brightnessMode = context.select(
+      (SettingsCubit cubit) => cubit.state is SettingsLoaded ? (cubit.state as SettingsLoaded).brightnessMode : BrightnessModeEntity.light,
+    );
     return Scaffold(
       appBar: AppBar(
         title: Text('Flashcards'),
@@ -90,7 +95,6 @@ class _FlashcardsPageState extends State<FlashcardsPage> {
               return Center(
                 child: Text(
                   'No flashcards yet',
-                  style: TextStyle(color: Colors.white),
                 ),
               );
             }
@@ -100,37 +104,43 @@ class _FlashcardsPageState extends State<FlashcardsPage> {
                 final flashcard = flashcards[index];
                 return GestureDetector(
                   onTap: () {
-                    showDialog(context: context, builder:(context) {
-                      return AlertDialog(
-                        title: Text("Answer",style: TextStyle(fontWeight: FontWeight.bold),),
-                        content: Text(flashcard.answer),
-                        actions: [
-                          IconButton(
-                            onPressed: (){
-                              context.read<DeckCubit>().deleteFlashcard(widget.deckId,flashcard.id);
-                              Navigator.pop(context);
-                            }, 
-                            icon: Icon(Icons.delete,color: Colors.red,)),
-                            TextButton(
-                              onPressed: (){
-                                Navigator.pop(context);
-                              }, 
-                            child: Text("close",style: TextStyle(color: Colors.amber),),
-                          )
-                        ],
-                      );
-                    },);
+                      showDialog(context: context, builder:(context) {
+                        return AlertDialog(
+                          title: Text("Answer",style: TextStyle(fontWeight: FontWeight.bold),),
+                          content: Text(flashcard.answer),
+                          actions: [
+                              TextButton(
+                                onPressed: (){
+                                  Navigator.pop(context);
+                                }, 
+                              child: Text(
+                                "close",
+                                style: TextStyle(
+                                  color: brightnessMode == BrightnessModeEntity.dark ? Colors.white : Colors.black
+                                ),
+                              ),
+                            )
+                          ],
+                        );
+                      },
+                    );
                   },
                   child: Card(
-                    elevation: 4,
+                    elevation: 2,
                     margin: EdgeInsets.symmetric(vertical: 10,horizontal: 20),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                    
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                     child: Padding(
-                      padding: EdgeInsets.all(20),
-                      child: Text(
-                        flashcard.question,
-                        style: TextStyle(fontSize: 20),
-                      ),
+                      padding: EdgeInsets.all(10),
+                      child: ListTile(
+                        title: Text(flashcard.question),
+                        trailing: IconButton(
+                          onPressed: () {
+                            context.read<DeckCubit>().deleteFlashcard(deck.id, flashcard.id);
+                          },
+                          icon: Icon(Icons.delete),
+                        ),
+                      )
                     ),
                   ),
                   
