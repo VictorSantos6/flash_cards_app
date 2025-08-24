@@ -6,8 +6,6 @@ abstract class DecksRepository {
   Future<List<DeckEntity>> getAllDecks();
   Future<DeckEntity?> getDeck(String id);
   Future<void> addDeck(DeckEntity deck);
-  
-
   Future<void> addFlashcardToDeck(String deckId, FlashcardEntity flashcard);
   Future<void> deleteFlashcardFromDeck(String deckId, String flashcardId);
 }

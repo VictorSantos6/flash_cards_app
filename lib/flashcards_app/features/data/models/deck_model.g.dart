@@ -17,7 +17,7 @@ class DeckModelAdapter extends TypeAdapter<DeckModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return DeckModel(
-      deck: (fields[0] as List).cast<FlashcardModel>(),
+      deckModel: (fields[0] as List).cast<FlashcardModel>(),
       name: fields[2] as String,
       id: fields[1] as String,
     );
@@ -28,7 +28,7 @@ class DeckModelAdapter extends TypeAdapter<DeckModel> {
     writer
       ..writeByte(3)
       ..writeByte(0)
-      ..write(obj.deck)
+      ..write(obj.deckModel)
       ..writeByte(1)
       ..write(obj.id)
       ..writeByte(2)

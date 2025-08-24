@@ -34,7 +34,7 @@ class DeckRepositoryImp implements DecksRepository{
     return model?.toEntity();
   }
 
-@override
+  @override
   Future<void> addFlashcardToDeck(String deckId, FlashcardEntity flashcard) async {
     final model = FlashcardModel.fromEntity(flashcard);
     await dataSourceImp.addFlashcardToDeck(deckId, model);

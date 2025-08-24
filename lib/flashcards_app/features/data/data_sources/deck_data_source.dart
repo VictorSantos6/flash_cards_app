@@ -40,7 +40,7 @@ class DeckDataSourceImp implements DeckDataSource{
   Future<void> addFlashcardToDeck(String deckId, FlashcardModel flashcard) async {
     final deck = deckBox.get(deckId);
     if (deck != null) {
-      deck.deck.add(flashcard); 
+      deck.deckModel.add(flashcard); 
       await deckBox.put(deckId, deck);
     }
   }
@@ -49,7 +49,7 @@ class DeckDataSourceImp implements DeckDataSource{
   Future<void> deleteFlashcardFromDeck(String deckId,String flashcardId) async {
     final deck = deckBox.get(deckId);
     if (deck != null) {
-      deck.deck.removeWhere((f) => f.id == flashcardId);
+      deck.deckModel.removeWhere((f) => f.id == flashcardId);
       await deckBox.put(deckId, deck); 
     }
   }
